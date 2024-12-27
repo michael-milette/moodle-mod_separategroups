@@ -1,0 +1,41 @@
+<div>
+    <form method="post" action="{{url}}">
+        <input type="hidden" name="id" value="{{id}}">
+        {{#hasgroups}}
+        <label for="group">{{#str}}selectgroup, mod_separategroups{{/str}}</label>
+        <select id="group" name="groupid" onchange="this.form.submit()">
+            <option value="">{{#str}}choosegroup, mod_separategroups{{/str}}</option>
+            {{#groups}}
+            <option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
+            {{/groups}}
+        </select>
+        {{/hasgroups}}
+
+        {{#showmembersdropdown}}
+        <div id="group-{{group_id}}" class="group-members">
+            <label for="member-{{group_id}}">{{#str}}selectmember, mod_separategroups{{/str}}</label>
+            <select id="member-{{group_id}}" name="member" onchange="this.form.submit()">
+                {{#hasmembers}}
+                <option value="0">{{#str}}choosemember, mod_separategroups{{/str}}</option>
+                {{#members}}
+                <option value="{{id}}" {{#selected}}selected{{/selected}}>{{lastname}}, {{firstname}} ({{email}})</option>
+                {{/members}}
+                {{/hasmembers}}
+                {{^hasmembers}}
+                <option value="">{{#str}}nomembers, mod_separategroups{{/str}}</option>
+                {{/hasmembers}}
+            </select>
+        </div>
+        {{/showmembersdropdown}}
+
+        {{#selectedmember}}
+        <div style="border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+            <p>{{#str}}fullname, mod_separategroups{{/str}}: {{selectedmember.fullname}}</p>
+            <p>{{#str}}country, mod_separategroups{{/str}}: {{selectedmember.country}}</p>
+            <p>{{#str}}timezone, mod_separategroups{{/str}}: {{selectedmember.timezone}}</p>
+            <p>{{#str}}dob, mod_separategroups{{/str}}: {{selectedmember.dob}}</p>
+        </div>
+        {{/selectedmember}}
+
+    </form>
+</div>

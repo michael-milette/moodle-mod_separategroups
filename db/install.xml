@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLDB PATH="mod/separategroups/db" VERSION="2023101000" COMMENT="Separate Groups plugin">
+    <TABLES>
+        <TABLE NAME="separategroups" COMMENT="Table to store separate groups data">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Course ID"/>
+                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="Activity name"/>
+                <FIELD NAME="intro" TYPE="text" NOTNULL="false" COMMENT="Introduction text"/>
+                <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" COMMENT="Introduction format"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Time created"/>
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Time modified"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+    </TABLES>
+</XMLDB>
