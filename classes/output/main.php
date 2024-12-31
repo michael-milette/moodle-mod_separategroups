@@ -44,15 +44,15 @@ class main implements renderable, templatable {
      * @param renderer_base $output The renderer base.
      * @return stdClass The data for the template.
      */
-    public function export_for_template(renderer_base $output) {
-        global $USER, $DB, $CFG, $COURSE, $PAGE;
+    public function export_for_template(renderer_base $output): stdClass {
+        global $USER, $COURSE, $PAGE;
 
         $data = new stdClass();
         $data->url = new moodle_url('/mod/separategroups/view.php');
         $data->id = $PAGE->cm->id;
         $data->showmembersdropdown = false; // Set default value.
 
-        if ($PAGE->cm->groupmode == 0) {
+        if ($PAGE->cm->groupmode === 0) {
             $data->selectedmember = $this->get_user_info($USER);
             $data->hasgroups = false;
             $data->hasmembers = false;
@@ -64,11 +64,7 @@ class main implements renderable, templatable {
         $data->hasgroups = !empty($groups);
 
         // If only one group, select it by default.
-        if (count($groups) == 1) {
-            $selectedgroupid = reset($groups)->id;
-        } else {
-            $selectedgroupid = optional_param('groupid', 0, PARAM_INT);
-        }
+        $selectedgroupid = count($groups) === 1 ? reset($groups)->id : optional_param('groupid', 0, PARAM_INT);
 
         // Ensure the user is a member of the selected group.
         if ($selectedgroupid && !in_array($selectedgroupid, array_column($groups, 'id'))) {
@@ -116,8 +112,8 @@ class main implements renderable, templatable {
      * @param int $userid The user ID.
      * @return array The user groups.
      */
-    private function get_user_groups($context, $courseid, $userid) {
-        if (has_capability('moodle/site:config', $context) || has_capability('moodle/course:managegroups', $context)) {
+    private function get_user_groups(context_course $context, int $courseid, int $userid): array {
+        if (has_capability('moodle/site:accessallgroups', $context)) {
             return groups_get_all_groups($courseid);
         } else {
             return groups_get_all_groups($courseid, $userid);
@@ -131,7 +127,7 @@ class main implements renderable, templatable {
      * @param int $selectedgroupid The selected group ID.
      * @return array The prepared groups.
      */
-    private function prepare_groups($groups, $selectedgroupid) {
+    private function prepare_groups(array $groups, int $selectedgroupid): array {
         $preparedgroups = [];
         foreach ($groups as $group) {
             $preparedgroups[] = [
@@ -150,7 +146,7 @@ class main implements renderable, templatable {
      * @param int $selectedmemberid The selected member ID.
      * @return array The group members.
      */
-    private function get_group_members($groupid, $selectedmemberid) {
+    private function get_group_members(int $groupid, int $selectedmemberid): array {
         global $DB;
         $members = groups_get_members(
             $groupid,
@@ -179,7 +175,7 @@ class main implements renderable, templatable {
      * @param bool $hasmembers Whether the group has members.
      * @return stdClass|null The selected member's data or null if not found.
      */
-    private function get_selected_member($selectedmemberid, $hasmembers) {
+    private function get_selected_member(int $selectedmemberid, bool $hasmembers): stdClass|null {
         global $DB, $CFG;
         if ($selectedmemberid && $hasmembers) {
             $selectedmember = $DB->get_record(
@@ -219,7 +215,7 @@ class main implements renderable, templatable {
      * @param stdClass $user The user object.
      * @return stdClass The user's information.
      */
-    private function get_user_info($user) {
+    private function get_user_info(stdClass $user): stdClass {
         global $DB, $CFG;
         $userinfo = new stdClass();
         $userinfo->fullname = fullname($user);
