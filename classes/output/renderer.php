@@ -40,7 +40,7 @@ class renderer extends \plugin_renderer_base {
      * @param main $main The main renderable object.
      * @return string The rendered output.
      */
-    public function render_main(main $main) {
+    public function render_main(main $main): string {
         // Use the page renderer to ensure we pass the correct renderer context.
         $renderer = $this->page->get_renderer('mod_separategroups');
 

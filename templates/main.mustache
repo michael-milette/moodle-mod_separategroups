@@ -2,27 +2,27 @@
     <form method="post" action="{{url}}">
         <input type="hidden" name="id" value="{{id}}">
         {{#hasgroups}}
-        <label for="group">{{#str}}selectgroup, mod_separategroups{{/str}}</label>
-        <select id="group" name="groupid" onchange="this.form.submit()">
-            <option value="">{{#str}}choosegroup, mod_separategroups{{/str}}</option>
-            {{#groups}}
-            <option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
-            {{/groups}}
-        </select>
+            <label for="group">{{#str}}selectgroup, mod_separategroups{{/str}}</label>
+            <select id="group" class="custom-select singleselect" name="groupid" onchange="this.form.submit()">
+                <option value="">{{#str}}choosegroup, mod_separategroups{{/str}}</option>
+                {{#groups}}
+                    <option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
+                {{/groups}}
+            </select>
         {{/hasgroups}}
 
         {{#showmembersdropdown}}
-        <div id="group-{{group_id}}" class="group-members">
+        <div id="group-{{group_id}}" class="group-members mt-2">
             <label for="member-{{group_id}}">{{#str}}selectmember, mod_separategroups{{/str}}</label>
-            <select id="member-{{group_id}}" name="member" onchange="this.form.submit()">
+            <select id="member-{{group_id}}" class="custom-select singleselect" name="member" onchange="this.form.submit()">
                 {{#hasmembers}}
-                <option value="0">{{#str}}choosemember, mod_separategroups{{/str}}</option>
-                {{#members}}
-                <option value="{{id}}" {{#selected}}selected{{/selected}}>{{lastname}}, {{firstname}} ({{email}})</option>
-                {{/members}}
+                    <option value="0">{{#str}}choosemember, mod_separategroups{{/str}}</option>
+                    {{#members}}
+                        <option value="{{id}}" {{#selected}}selected{{/selected}}>{{lastname}}, {{firstname}} ({{email}})</option>
+                    {{/members}}
                 {{/hasmembers}}
                 {{^hasmembers}}
-                <option value="">{{#str}}nomembers, mod_separategroups{{/str}}</option>
+                    <option value="">{{#str}}nomembers, mod_separategroups{{/str}}</option>
                 {{/hasmembers}}
             </select>
         </div>
