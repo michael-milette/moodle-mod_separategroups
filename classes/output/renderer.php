@@ -18,7 +18,7 @@
  * Renderer for the Separate Groups plugin.
  *
  * @package    mod_separategroups
- * @copyright  2024 TNG Consulting Inc. - {@link https://www.tngconsulting.ca/}
+ * @copyright  2024-2025 TNG Consulting Inc. - {@link https://www.tngconsulting.ca/}
  * @author     Michael Milette
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,7 +29,7 @@ namespace mod_separategroups\output;
  * Renderer for the Separate Groups plugin.
  *
  * @package    mod_separategroups
- * @copyright  2024 TNG Consulting Inc. - {@link https://www.tngconsulting.ca/}
+ * @copyright  2024-2025 TNG Consulting Inc. - {@link https://www.tngconsulting.ca/}
  * @author     Michael Milette
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -41,13 +41,7 @@ class renderer extends \plugin_renderer_base {
      * @return string The rendered output.
      */
     public function render_main(main $main): string {
-        // Use the page renderer to ensure we pass the correct renderer context.
-        $renderer = $this->page->get_renderer('mod_separategroups');
-
-        // Export the data for the Mustache template.
-        $data = $main->export_for_template($renderer); // Pass the correct renderer.
-
-        // Now render the data using the specified template.
-        return $this->render_from_template('mod_separategroups/main', $data);
+        // Render the data using main.mustache.
+        return $this->render_from_template('mod_separategroups/main', $main->export_for_template($this));
     }
 }
